@@ -1,0 +1,42 @@
+{
+  "start_flags": {},
+  "scenes": {
+    "ada_hello": {
+      "speaker": "Ada",
+      "set": { "met_ada": true },
+      "text": [
+        "Oh! A visitor. I'm Ada. I've looked after this garden for years.",
+        "I dropped my gate key somewhere past the pond, and the slimes moved in after that. The best part of the garden is locked behind that gate."
+      ],
+      "options": [
+        { "t": "I'll find your key.", "o": "Thank you. Mind the slimes. They bounce.", "set": { "promised": true } },
+        { "t": "What's behind the gate?", "o": "Roses. Hundreds of them. I haven't seen them in weeks.", "next": "ada_hello" }
+      ]
+    },
+    "ada_waiting": {
+      "speaker": "Ada",
+      "text": [
+        { "if": "promised", "t": "Any luck? It's somewhere past the pond, I'm sure of it.", "else": "Still here? The key is somewhere past the pond, if you're curious." }
+      ]
+    },
+    "ada_key": {
+      "speaker": "Ada",
+      "text": [
+        "You found it! That's my key.",
+        { "if": "promised", "t": "You kept your promise.", "else": "I didn't think anyone would bother." }
+      ],
+      "options": [
+        { "t": "Give the key back.", "o": "Ada smiles and walks straight to the gate. You hear the lock turn.", "take": "key", "set": { "gave_key": true, "gate_open": true } },
+        { "t": "Keep the key.", "o": "Ada looks at the key, then at you, and says nothing.", "set": { "kept_key": true } }
+      ]
+    },
+    "ada_thanks": {
+      "speaker": "Ada",
+      "text": ["Go on in. I'll be right behind you."]
+    },
+    "ada_quiet": {
+      "speaker": "Ada",
+      "text": ["Ada is busy with the weeds, and doesn't look up."]
+    }
+  }
+}

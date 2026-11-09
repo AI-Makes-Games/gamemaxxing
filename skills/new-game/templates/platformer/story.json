@@ -1,0 +1,13 @@
+{
+  "start_flags": {},
+  "scenes": {
+    "sign_start": {
+      "speaker": "Sign",
+      "text": [
+        "Every letter needs delivering before sunrise!",
+        "Run with the arrow keys or A and D. Jump with Space. Hop on the clockwork beetles to stop them.",
+        { "if": "found_stamp", "t": "You found the golden stamp. Something special will happen at the post box.", "else": "They say a golden stamp is hidden up high somewhere." }
+      ]
+    }
+  }
+}

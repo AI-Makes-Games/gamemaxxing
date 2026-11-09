@@ -1,0 +1,80 @@
+{
+  "start_flags": { "kindness": 0 },
+  "scenes": {
+    "open_up": {
+      "background": "bakery",
+      "left": "hero",
+      "right": "mira",
+      "speaker": "Mira",
+      "text": [
+        "It's five in the morning. Mira presses the keys into your hand.",
+        "\"The oven broke in the night. There's one loaf left from yesterday. I have to fetch the repair man, so whoever comes in first... you decide.\""
+      ],
+      "options": [
+        { "t": "Unlock the door.", "next": "nurse" }
+      ]
+    },
+    "nurse": {
+      "background": "bakery",
+      "left": "hero",
+      "right": "jo",
+      "speaker": "Jo",
+      "text": [
+        "A nurse comes in, still in her uniform, eyes half closed.",
+        "\"Twelve hours on the ward. Please tell me there's bread.\""
+      ],
+      "options": [
+        { "t": "Give Jo the loaf.", "o": "Jo holds it like it's treasure. \"You've saved my morning.\"", "set": { "gave_loaf": true }, "add": { "kindness": 1 }, "next": "kid" },
+        { "t": "Say you're closed today.", "o": "Jo nods slowly and shuffles back out into the cold.", "next": "kid" },
+        { "t": "Offer her half.", "o": "You tear it carefully. Jo laughs. \"Half is plenty.\"", "set": { "halved": true }, "add": { "kindness": 1 }, "next": "kid" }
+      ]
+    },
+    "kid": {
+      "background": "bakery",
+      "left": "hero",
+      "right": "sam",
+      "speaker": "Sam",
+      "timer": 10,
+      "timeout_option": 0,
+      "text": [
+        "The bell rings again. A boy counts coins onto the counter.",
+        "\"I've got sixty pence. Is that enough for bread? It's for my nan.\"",
+        { "if": "gave_loaf", "t": "The shelf behind you is empty.", "else": "The bread is still on the shelf behind you." }
+      ],
+      "options": [
+        { "t": "Explain that it's all gone.", "if": "gave_loaf", "o": "Sam pockets his coins. \"That's okay. I'll try the shop.\"", "next": "landlord" },
+        { "t": "Give Sam the other half for free.", "if": "halved", "o": "Sam's whole face lights up.", "add": { "kindness": 1 }, "set": { "gave_loaf": true }, "next": "landlord" },
+        { "t": "Give Sam the loaf for free.", "if": "!gave_loaf & !halved", "o": "\"For free? Really?\" He runs out before you can change your mind.", "add": { "kindness": 1 }, "set": { "gave_loaf": true }, "next": "landlord" },
+        { "t": "Sell it for sixty pence.", "if": "!gave_loaf & !halved", "o": "Sam slides the coins across. Fair is fair.", "set": { "sold": true }, "next": "landlord" },
+        { "t": "Sell Sam the other half.", "if": "halved", "o": "Sam slides the coins across and takes the half loaf.", "set": { "sold": true }, "next": "landlord" }
+      ]
+    },
+    "landlord": {
+      "background": "street",
+      "left": "hero",
+      "right": "pike",
+      "speaker": "Mr Pike",
+      "text": [
+        "Mr Pike, who owns the building, is waiting outside.",
+        "\"Rent's due on Friday. And I hear you've been giving bread away. Tell me what's going on in there.\""
+      ],
+      "options": [
+        { "t": "Tell him the truth about the oven.", "o": "He listens, arms folded, then sighs.", "set": { "told_truth": true }, "next": "close" },
+        { "t": "Make something up.", "o": "\"A delivery problem,\" you say. He doesn't look convinced.", "next": "close" }
+      ]
+    },
+    "close": {
+      "background": "bakery",
+      "left": "hero",
+      "right": "mira",
+      "speaker": "Mira",
+      "text": [
+        "Mira comes back with the repair man just as the sun comes up.",
+        { "if": "kindness>=2", "t": "\"I passed Jo and Sam on the way. They couldn't stop talking about you.\"", "else": "\"Quiet morning?\" she asks, looking at the counter." }
+      ],
+      "options": [
+        { "t": "Finish the shift.", "end": true }
+      ]
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "title": "Rooftop Courier",
+  "tagline": "It's the only game where you race the sunrise to deliver every letter.",
+  "how_to_play": "Arrow keys or A and D to run, Space to jump, E to read signs.",
+  "colours": {
+    "background": "#22264a",
+    "ground": "#4d4166",
+    "ground_top": "#9a7fb8",
+    "platform": "#c9a36b",
+    "spikes": "#d8d8e0",
+    "panel": "#151830",
+    "text": "#f2ead9",
+    "accent": "#ffcf6b",
+    "health": "#e0574f"
+  },
+  "tile_size": 32,
+  "player": {
+    "name": "You",
+    "sprite": "hero",
+    "color": "#f2ead9",
+    "speed": 220,
+    "jump_speed": 600,
+    "gravity": 1500,
+    "max_fall": 900,
+    "coyote_time": 0.1,
+    "jump_buffer": 0.12,
+    "health": 3
+  },
+  "endings": [
+    {
+      "id": "secret",
+      "if": "found_stamp",
+      "title": "The golden stamp",
+      "text": "With the golden stamp on the last letter, every window on the street lights up at once."
+    },
+    {
+      "id": "delivered",
+      "if": "",
+      "title": "Delivered",
+      "text": "The last letter drops into the post box just as the sun comes up over the chimneys."
+    }
+  ]
+}

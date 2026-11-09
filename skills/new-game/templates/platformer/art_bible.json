@@ -1,0 +1,30 @@
+{
+  "style": {
+    "pixel": true,
+    "perspective": "side view",
+    "base_size": "64x64",
+    "words": ["night", "cosy", "busy"],
+    "pictures": ["rooftops at night with lit windows", "an old postcard", "a cartoon city skyline"],
+    "style": "16-bit pixel art, side view, readable shapes, 1px dark outline, warm window light against a deep blue night",
+    "palette": ["#22264A", "#4D4166", "#9A7FB8", "#C9A36B", "#F2EAD9", "#FFCF6B", "#E0574F", "#E07F5F", "#7FB3D9", "#D8D8E0"],
+    "rules": [
+      "No text or logos inside sprites.",
+      "Make each character once, then animate that same character. Never remake it for each animation."
+    ]
+  },
+  "characters": [
+    { "id": "hero", "role": "the player", "prompt": "a young courier with a big satchel and a red cap", "animations": ["idle", "run", "jump", "hurt"] },
+    { "id": "beetle", "role": "creature", "prompt": "a small clockwork beetle with a wind-up key", "animations": ["idle", "walk"] }
+  ],
+  "props": [
+    { "id": "letter", "prompt": "a sealed envelope" },
+    { "id": "stamp", "prompt": "a shiny golden postage stamp" },
+    { "id": "chimney", "prompt": "a brick chimney with a little smoke" },
+    { "id": "post_box", "prompt": "a red post box" }
+  ],
+  "tiles": { "prompt": "slate rooftops and brick walls, side view" },
+  "ui": [
+    { "id": "logo", "prompt": "the title 'Rooftop Courier' as a logo" },
+    { "id": "dialogue_panel", "prompt": "a dark blue panel with a thin gold edge" }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "ada": {
+    "char": "A",
+    "kind": "npc",
+    "name": "Ada",
+    "sprite": "ada",
+    "color": "#d9a066",
+    "talk": [
+      { "if": "gave_key", "scene": "ada_thanks" },
+      { "if": "kept_key", "scene": "ada_quiet" },
+      { "if": "has:key", "scene": "ada_key" },
+      { "if": "met_ada", "scene": "ada_waiting" },
+      { "scene": "ada_hello" }
+    ]
+  },
+  "slime": {
+    "char": "s",
+    "kind": "enemy",
+    "name": "slimes",
+    "sprite": "slime",
+    "color": "#8fd16a",
+    "shape": "blob",
+    "behaviour": "wander",
+    "health": 2,
+    "speed": 50,
+    "damage": 1
+  },
+  "ghost": {
+    "char": "g",
+    "kind": "enemy",
+    "name": "ghosts",
+    "sprite": "ghost",
+    "color": "#c9d6ef",
+    "shape": "circle",
+    "behaviour": "chase",
+    "health": 3,
+    "speed": 75,
+    "sight": 200,
+    "damage": 1
+  },
+  "frog": {
+    "char": "f",
+    "kind": "enemy",
+    "name": "spitting frogs",
+    "sprite": "frog",
+    "color": "#4f9e6a",
+    "shape": "blob",
+    "behaviour": "keep_away",
+    "health": 2,
+    "speed": 55,
+    "sight": 240,
+    "shoot_every": 2.2,
+    "damage": 1
+  },
+  "key": {
+    "char": "k",
+    "kind": "item",
+    "name": "gate key",
+    "sprite": "key",
+    "color": "#f2d16b"
+  },
+  "gate": {
+    "char": "D",
+    "kind": "door",
+    "name": "garden gate",
+    "sprite": "gate",
+    "color": "#8a6a4a",
+    "needs": "key",
+    "opens_if": "gate_open"
+  },
+  "checkpoint": {
+    "char": "C",
+    "kind": "checkpoint",
+    "name": "lantern",
+    "sprite": "lantern",
+    "color": "#f2b84b"
+  },
+  "goal": {
+    "char": "G",
+    "kind": "goal",
+    "name": "the secret garden",
+    "sprite": "goal",
+    "color": "#f27fa6"
+  }
+}

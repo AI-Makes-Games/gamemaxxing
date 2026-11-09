@@ -1,0 +1,29 @@
+{
+  "style": {
+    "pixel": true,
+    "perspective": "top-down three-quarter",
+    "base_size": "64x64",
+    "words": ["green", "gentle", "cosy"],
+    "pictures": ["an overgrown walled garden", "a watercolour picture book", "an old wooden gate"],
+    "style": "16-bit pixel art, top-down three-quarter view, readable shapes, 1px dark outline, soft light from the upper left, gentle greens",
+    "palette": ["#1D2330", "#3D5A3F", "#5E8A55", "#8FD16A", "#6B5B4B", "#8A6A4A", "#D9A066", "#F2EAD9", "#F2B84B", "#F27FA6", "#2F6D8F", "#C9D6EF"],
+    "rules": [
+      "No text or logos inside sprites.",
+      "Make each character once, then animate that same character. Never remake it for each animation."
+    ]
+  },
+  "characters": [
+    { "id": "hero", "role": "the player", "prompt": "a small traveller in a cream tunic and green scarf", "animations": ["idle", "walk", "attack", "hurt"] },
+    { "id": "ada", "role": "the gardener", "prompt": "an old gardener with a straw hat and a watering can", "animations": ["idle", "talk"] },
+    { "id": "slime", "role": "creature", "prompt": "a round, friendly-looking green slime", "animations": ["idle", "walk"] }
+  ],
+  "props": [
+    { "id": "key", "prompt": "an old brass gate key" },
+    { "id": "gate", "prompt": "a wooden garden gate set in a stone wall" }
+  ],
+  "tiles": { "prompt": "garden grass, a low stone wall and a small pond" },
+  "ui": [
+    { "id": "logo", "prompt": "the title 'The Garden Gate' as a logo with leaves" },
+    { "id": "dialogue_panel", "prompt": "a dark panel with a thin golden edge" }
+  ]
+}

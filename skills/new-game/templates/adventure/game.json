@@ -1,0 +1,40 @@
+{
+  "title": "The Garden Gate",
+  "tagline": "It's the only game where you decide whether to give back what you found.",
+  "how_to_play": "Arrow keys or WASD to walk, Space to swing, E to talk.",
+  "colours": {
+    "background": "#1d2330",
+    "floor": "#3d5a3f",
+    "wall": "#6b5b4b",
+    "water": "#2f6d8f",
+    "panel": "#141821",
+    "text": "#f2ead9",
+    "accent": "#f2b84b",
+    "health": "#e0574f"
+  },
+  "tile_size": 32,
+  "enemy_touch": "hurt",
+  "player": {
+    "name": "You",
+    "sprite": "hero",
+    "color": "#f2ead9",
+    "speed": 150,
+    "health": 5,
+    "attack_damage": 1,
+    "can_attack": true
+  },
+  "endings": [
+    {
+      "id": "shared",
+      "if": "gave_key",
+      "title": "The garden, shared",
+      "text": "Ada walks through the gate beside you. The roses she hasn't seen in weeks are all in bloom."
+    },
+    {
+      "id": "alone",
+      "if": "",
+      "title": "The garden, alone",
+      "text": "The garden is beautiful. You have it all to yourself. Somewhere behind the wall, Ada is still waiting."
+    }
+  ]
+}

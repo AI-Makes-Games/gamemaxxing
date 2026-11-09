@@ -1,0 +1,16 @@
+{
+  "name": "gamemaxxing",
+  "owner": {
+    "name": "Hex"
+  },
+  "metadata": {
+    "description": "GameMaxxing: make and publish your own 2D game in one day."
+  },
+  "plugins": [
+    {
+      "name": "gamemaxxing",
+      "source": "./",
+      "description": "Make and publish your own 2D game in one day, with no coding experience."
+    }
+  ]
+}

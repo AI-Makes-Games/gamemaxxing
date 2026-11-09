@@ -1,0 +1,51 @@
+{
+  "sign": {
+    "char": "S",
+    "kind": "npc",
+    "name": "Sign",
+    "sprite": "sign",
+    "color": "#c9a36b",
+    "shape": "sign",
+    "talk": "sign_start"
+  },
+  "beetle": {
+    "char": "e",
+    "kind": "enemy",
+    "name": "clockwork beetles",
+    "sprite": "beetle",
+    "color": "#7fb3d9",
+    "shape": "blob",
+    "behaviour": "patrol",
+    "speed": 60,
+    "damage": 1
+  },
+  "letter": {
+    "char": "o",
+    "kind": "collectible",
+    "name": "letters",
+    "sprite": "letter",
+    "color": "#f2ead9"
+  },
+  "stamp": {
+    "char": "x",
+    "kind": "item",
+    "name": "golden stamp",
+    "sprite": "stamp",
+    "color": "#ffcf6b",
+    "set": { "found_stamp": true }
+  },
+  "chimney": {
+    "char": "C",
+    "kind": "checkpoint",
+    "name": "chimney",
+    "sprite": "chimney",
+    "color": "#e07f5f"
+  },
+  "post_box": {
+    "char": "G",
+    "kind": "goal",
+    "name": "post box",
+    "sprite": "post_box",
+    "color": "#e0574f"
+  }
+}

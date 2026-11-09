@@ -1,0 +1,9 @@
+{
+  "hero": { "kind": "character", "name": "You", "sprite": "hero", "color": "#f4ead8" },
+  "mira": { "kind": "character", "name": "Mira", "sprite": "mira", "color": "#e8b48a" },
+  "jo": { "kind": "character", "name": "Jo", "sprite": "jo", "color": "#8fb8d9" },
+  "sam": { "kind": "character", "name": "Sam", "sprite": "sam", "color": "#f2d16b" },
+  "pike": { "kind": "character", "name": "Mr Pike", "sprite": "pike", "color": "#9a8f86" },
+  "bakery": { "kind": "background", "name": "The bakery", "sprite": "bakery", "color": "#3a2a24" },
+  "street": { "kind": "background", "name": "The street", "sprite": "street", "color": "#24304a" }
+}

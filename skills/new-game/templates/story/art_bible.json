@@ -1,0 +1,30 @@
+{
+  "style": {
+    "pixel": true,
+    "perspective": "portraits and backgrounds",
+    "base_size": "64x64 portraits, 320x180 backgrounds",
+    "words": ["warm", "sleepy", "kind"],
+    "pictures": ["a bakery window at dawn", "flour on a wooden counter", "a quiet street lamp"],
+    "style": "16-bit pixel art, character portraits from the waist up and painted backgrounds, warm oven light against a blue dawn",
+    "palette": ["#1F1A24", "#3A2A24", "#24304A", "#E8B48A", "#F0A95E", "#F4EAD8", "#8FB8D9", "#F2D16B", "#9A8F86", "#6E4B3A"],
+    "rules": [
+      "No text or logos inside pictures.",
+      "Portraits face the middle of the screen: left characters face right, right characters face left."
+    ]
+  },
+  "characters": [
+    { "id": "hero", "role": "you, the apprentice baker", "prompt": "a young apprentice baker in a flour-dusted apron", "animations": ["idle"] },
+    { "id": "mira", "role": "the baker", "prompt": "a cheerful older baker with rolled-up sleeves", "animations": ["idle"] },
+    { "id": "jo", "role": "a nurse", "prompt": "a tired nurse in blue scrubs and a coat", "animations": ["idle"] },
+    { "id": "sam", "role": "a boy", "prompt": "a small boy in a woolly hat holding coins", "animations": ["idle"] },
+    { "id": "pike", "role": "the landlord", "prompt": "a stern landlord in a grey overcoat", "animations": ["idle"] }
+  ],
+  "props": [
+    { "id": "bakery", "prompt": "inside a small bakery at dawn, a counter and empty shelves" },
+    { "id": "street", "prompt": "a quiet street outside a bakery at dawn" }
+  ],
+  "ui": [
+    { "id": "logo", "prompt": "the title 'The Night Bakery' as a logo with a loaf" },
+    { "id": "dialogue_panel", "prompt": "a dark panel with a warm orange edge" }
+  ]
+}

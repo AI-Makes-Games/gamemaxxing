@@ -1,0 +1,33 @@
+{
+  "title": "The Night Bakery",
+  "tagline": "It's the only game where you decide who gets the last loaf.",
+  "how_to_play": "Click a choice, or press 1 to 4.",
+  "colours": {
+    "background": "#1f1a24",
+    "panel": "#17131c",
+    "text": "#f4ead8",
+    "accent": "#f0a95e"
+  },
+  "start_scene": "open_up",
+  "timed_choices": false,
+  "endings": [
+    {
+      "id": "warm",
+      "if": "kindness>=2",
+      "title": "A warm street",
+      "text": "Word gets around. The next morning there's a queue down the street, and someone has fixed the oven while you slept."
+    },
+    {
+      "id": "honest",
+      "if": "told_truth",
+      "title": "The honest baker",
+      "text": "Mr Pike grumbles, but he gives you another week. Mira says she's never been prouder of a broken oven."
+    },
+    {
+      "id": "closed",
+      "if": "",
+      "title": "Closed early",
+      "text": "You lock up before the sun is fully up. The street is quiet. The last loaf cools on the counter."
+    }
+  ]
+}
