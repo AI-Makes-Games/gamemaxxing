@@ -14,20 +14,18 @@ Make your own 2D game in one day, then share it on the web. You don't need to kn
 1. **Install Godot 4.7.** Download the standard version (not ".NET") from godotengine.org. Open it once, then click **Editor → Manage Export Templates → Download and Install**. This lets your game run in a web browser.
 2. **Install the Claude desktop app** and sign in.
 3. **Make a folder for your game.** Make an empty folder called `MyGame` (on your Desktop is fine). In the Claude app, open the **Code** tab and choose that folder.
-4. **Add GameMaxxing.** In the Code tab, click **Customize** in the sidebar, add a marketplace with this address, then install **gamemaxxing** from the list:
-   ```
-   https://github.com/AI-Makes-Games/gamemaxxing
-   ```
-   Or type these two lines into Claude Code, one at a time:
+4. **Add GameMaxxing.** In the Code tab, in your `MyGame` folder, type these two lines into the message box, one at a time (press Enter after each):
    ```
    /plugin marketplace add AI-Makes-Games/gamemaxxing
    /plugin install gamemaxxing@gamemaxxing
    ```
-5. **Add SpriteCook** the same way (address `https://github.com/SpriteCook/claude-plugin`, then install **spritecook**), and sign in to SpriteCook when it asks. Or type:
+   Or click: **Customize** (in the sidebar) → the **Plugins** tab → **+ Add** → add a marketplace from a GitHub repository, type `AI-Makes-Games/gamemaxxing`, then install **gamemaxxing**. (The menu names can differ between app versions; if you can't find it, use the two lines above.)
+5. **Add SpriteCook** the same way, then sign in to SpriteCook when it asks:
    ```
    /plugin marketplace add SpriteCook/claude-plugin
    /plugin install spritecook@spritecook
    ```
+   (Or Customize → Plugins → + Add, with `SpriteCook/claude-plugin`.)
 6. **Start your game.** In your `MyGame` folder in the Code tab, type:
    ```
    /gamemaxxing:start
