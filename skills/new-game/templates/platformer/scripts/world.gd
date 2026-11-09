@@ -317,11 +317,11 @@ func tick(dt: float) -> void:
 			story.apply(it.d, item_names)
 			story.note("Found the %s" % it.name)
 			it.node.queue_free()
-			_toast("Found: %s" % it.name)
+			_toast(word("found", "Found: {item}").replace("{item}", str(it.name)))
 	for cp in checkpoints:
 		if cp.p.distance_to(player.p) < 30 and respawn != cp.p:
 			respawn = cp.p
-			_toast("Checkpoint")
+			_toast(word("checkpoint", "Checkpoint"))
 	for gl in goals:
 		if gl.p.distance_to(player.p) < 30:
 			finish("")
@@ -371,7 +371,7 @@ func hurt(dmg: float, send_back: bool) -> void:
 		player.p = respawn
 		player.v = Vector2.ZERO
 		player.inv = 1.2
-		_toast("Back to the last checkpoint")
+		_toast(word("back", "Back to the last checkpoint"))
 
 func _sync() -> void:
 	var pn: Node2D = player.node
@@ -471,3 +471,8 @@ func _draw_hud() -> void:
 		hud.draw_circle(c, 11, Color(0.1, 0.1, 0.12, 0.7))
 		if i < int(ceil(player.hp)):
 			hud.draw_circle(c, 9, D.colour("health", "#e0574f"))
+
+## On-screen words the student can change in game.json "words" (for example {"caught": "They walk you home."}).
+## {item} is replaced with the thing's name.
+func word(key: String, fallback: String) -> String:
+	return str((D.game.get("words", {}) as Dictionary).get(key, fallback))

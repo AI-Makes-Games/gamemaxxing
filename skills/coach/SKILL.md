@@ -10,7 +10,7 @@ This is for Hex, the workshop leader, not the student. Be brief and factual. **C
 
 ## Gather
 
-- `gamemaxxing/progress.json`: stage, `day_start`, `stage_started`, pitch, `scope_cut`, `template`, credits, checkpoints, `notes`.
+- `gamemaxxing/progress.json`: stage, `day_start`, `stage_started`, pitch, `scope_cut`, `template`, credits, checkpoints, `notes`, and `quest` (quest, rank, XP, Depth, boss questions, badges, `suggestions_used`). If `suggestions_used` is high and Depth is low, say so: the student may need encouragement to put more of themselves in.
 - The day plan in [run_of_show.md](${CLAUDE_PLUGIN_ROOT}/skills/start/run_of_show.md), to work out ahead or behind.
 - `design/decisions.md`: count `Status: open` entries and list their titles.
 - The newest `playtest/round-N.md`: the one fix and whether it's fixed.
@@ -22,6 +22,7 @@ This is for Hex, the workshop leader, not the student. Be brief and factual. **C
 ```
 STUDENT STATUS  (time now, Xh Ym into the day)
 Stage: build (started 11:20, 35 min in)   On time / 25 min BEHIND (scope cut: offered, declined)
+Quest 4 of 8 · Rank 3 Level Designer · XP 480 · Depth 135 · Boss questions 2 · Badges 6
 Template: platformer
 
 Time per stage: setup 22m · pitch 31m · bible 28m · art_direction 40m · template 9m · build 35m

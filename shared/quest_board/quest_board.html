@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quest Board</title>
+<style>
+  :root {
+    --bg: #0f0c1d; --bg2: #1a1530; --panel: #221c3d; --panel2: #2c2550;
+    --ink: #f4efff; --muted: #a79fc9; --line: #3d3466;
+    --gold: #ffcf4a; --gem: #5fd4ff; --done: #6ee7a0; --hot: #ff7ab6; --lock: #4a4270;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif; }
+  body { min-height: 100vh; overflow-x: hidden;
+    background: radial-gradient(1200px 600px at 70% -10%, #2b1f5c 0%, transparent 60%),
+                radial-gradient(900px 500px at -10% 110%, #3a1446 0%, transparent 55%), var(--bg); }
+  .stars { position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image: radial-gradient(1px 1px at 20% 30%, #fff8 50%, transparent 51%),
+      radial-gradient(1px 1px at 70% 80%, #fff6 50%, transparent 51%),
+      radial-gradient(2px 2px at 40% 60%, #fff5 50%, transparent 51%),
+      radial-gradient(1px 1px at 85% 20%, #fff9 50%, transparent 51%),
+      radial-gradient(1px 1px at 10% 85%, #fff7 50%, transparent 51%);
+    background-size: 320px 320px; animation: drift 90s linear infinite; opacity: .7; }
+  @keyframes drift { to { background-position: 320px 640px; } }
+  .wrap { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 22px 18px 40px; }
+  .pixel { font-family: "Cascadia Mono", Consolas, "Courier New", monospace; letter-spacing: .06em; text-transform: uppercase; font-weight: 800; }
+
+  /* Header */
+  header { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: center; }
+  .brand { color: var(--muted); font-size: 12px; }
+  .title { font-size: clamp(26px, 4vw, 42px); margin: 4px 0 2px; line-height: 1.05; }
+  .hook { color: var(--muted); font-size: 15px; max-width: 640px; }
+  .rank { display: flex; align-items: center; gap: 14px; background: var(--panel); border: 2px solid var(--line);
+    border-radius: 14px; padding: 12px 18px 12px 12px; }
+  .emblem { width: 66px; height: 66px; display: grid; place-items: center; position: relative; }
+  .emblem svg { position: absolute; inset: 0; filter: drop-shadow(0 0 10px #ffcf4a66); }
+  .emblem span { position: relative; font-size: 26px; color: #2a1c00; }
+  .rank small { display: block; color: var(--muted); font-size: 11px; }
+  .rank b { font-size: 18px; }
+
+  /* Bars */
+  .bars { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 18px 0 8px; }
+  .bar { background: var(--panel); border: 2px solid var(--line); border-radius: 12px; padding: 10px 14px; }
+  .bar .row { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; color: var(--muted); }
+  .bar .row b { color: var(--ink); font-size: 20px; }
+  .track { height: 14px; background: #120e24; border-radius: 8px; margin-top: 8px; overflow: hidden; border: 1px solid var(--line); }
+  .fill { height: 100%; width: 0; border-radius: 8px; transition: width 1.2s cubic-bezier(.2,.8,.2,1); }
+  .xp .fill { background: repeating-linear-gradient(45deg, #ffcf4a, #ffcf4a 10px, #ffb420 10px, #ffb420 20px); }
+  .depth .fill { background: repeating-linear-gradient(45deg, #5fd4ff, #5fd4ff 10px, #2fa8e0 10px, #2fa8e0 20px); }
+  .next { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+  /* Map */
+  .panel { background: var(--panel); border: 2px solid var(--line); border-radius: 16px; padding: 16px; margin-top: 14px; }
+  .panel h2 { margin: 0 0 10px; font-size: 13px; color: var(--muted); }
+  .map { position: relative; }
+  .map svg.path { width: 100%; height: 150px; display: block; }
+  .nodes { position: absolute; inset: 0; }
+  .node { position: absolute; transform: translate(-50%, -50%); text-align: center; width: 120px; }
+  .dot { width: 46px; height: 46px; margin: 0 auto; border-radius: 12px; display: grid; place-items: center; font-weight: 900;
+    background: var(--lock); color: #8d84b8; border: 3px solid #5b5288; transform: rotate(45deg); }
+  .dot i { transform: rotate(-45deg); font-style: normal; font-size: 18px; }
+  .node.done .dot { background: var(--done); color: #08321b; border-color: #b8ffd6; }
+  .node.now .dot { background: var(--hot); color: #3a0020; border-color: #ffd1e6; animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 #ff7ab688; } 50% { box-shadow: 0 0 0 12px #ff7ab600; } }
+  .node .lbl { font-size: 12px; margin-top: 8px; color: var(--muted); line-height: 1.2; }
+  .node.now .lbl, .node.done .lbl { color: var(--ink); }
+
+  /* Lower grid */
+  .grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 14px; }
+  .quest-now .qn { font-size: 22px; margin: 2px 0 6px; }
+  .quest-now .tip { background: var(--panel2); border-left: 4px solid var(--gold); padding: 10px 12px; border-radius: 8px; font-size: 14px; line-height: 1.45; }
+  .quest-now .get { margin-top: 10px; font-size: 14px; color: var(--muted); }
+  .quest-now .get b { color: var(--ink); }
+  .say { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .say span { background: #120e24; border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; font-size: 12px; color: var(--muted); }
+  .say b { color: var(--gem); }
+  .hero { display: flex; gap: 14px; align-items: center; margin-top: 12px; }
+  .hero img { width: 96px; height: 96px; image-rendering: pixelated; background: #120e24; border-radius: 10px; border: 2px solid var(--line); object-fit: contain; }
+
+  .badges { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 10px; }
+  .badge { background: var(--panel2); border: 2px solid var(--line); border-radius: 12px; padding: 10px 6px; text-align: center; }
+  .badge .ic { font-size: 28px; }
+  .badge .nm { font-size: 11px; margin-top: 4px; line-height: 1.2; }
+  .badge.locked { filter: grayscale(1); opacity: .35; }
+  .badge.new { animation: pop .9s cubic-bezier(.2,1.6,.4,1); border-color: var(--gold); }
+  @keyframes pop { 0% { transform: scale(.2) rotate(-20deg); } 100% { transform: scale(1) rotate(0); } }
+
+  .feed { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .feed li { background: var(--panel2); border-radius: 10px; padding: 8px 10px; font-size: 13px; line-height: 1.35; animation: slide .5s ease-out; }
+  @keyframes slide { from { opacity: 0; transform: translateY(-6px); } }
+  .feed .pts { font-weight: 800; margin-right: 6px; }
+  .feed .x { color: var(--gold); } .feed .d { color: var(--gem); }
+
+  /* Rank-up overlay */
+  .levelup { position: fixed; inset: 0; z-index: 10; display: none; place-items: center; background: #0f0c1dcc; }
+  .levelup.show { display: grid; animation: fade .3s ease-out; }
+  .levelup .card { text-align: center; padding: 30px 40px; border-radius: 20px; background: var(--panel); border: 3px solid var(--gold);
+    box-shadow: 0 0 60px #ffcf4a55; animation: pop .8s cubic-bezier(.2,1.6,.4,1); }
+  .levelup .big { font-size: clamp(28px, 5vw, 48px); color: var(--gold); margin: 6px 0; }
+  @keyframes fade { from { opacity: 0; } }
+  .waiting { text-align: center; color: var(--muted); padding: 60px 20px; }
+
+  @media (max-width: 820px) { header, .grid, .bars { grid-template-columns: 1fr; } .node { width: 80px; } .node .lbl { font-size: 10px; } }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="stars"></div>
+<div class="wrap" id="app"><div class="waiting pixel">Loading your quest…</div></div>
+<div class="levelup" id="levelup"><div class="card">
+  <div class="pixel" style="color:var(--muted)">Rank up!</div>
+  <div class="big pixel" id="lvName"></div>
+  <div id="lvWhy" style="color:var(--muted)"></div>
+</div></div>
+
+<script>
+// Fixed game definitions. Claude only writes progress numbers and ids in quest_data.js.
+var QUESTS = [
+  { n: "The Spark", get: "An idea that's truly yours",
+    tip: "Studios start every game with a one-line pitch. If you can't say what makes it different, players can't either." },
+  { n: "The Rulebook", get: "Your hook, rules, key scene and title",
+    tip: "A game bible is the promise a team keeps. Every later choice gets checked against it, so it stays your game." },
+  { n: "The Look", get: "Your art style and your hero",
+    tip: "Studios lock the style before drawing everything, so all the art looks like one world." },
+  { n: "The Prototype", get: "A playable game made of simple shapes",
+    tip: "Studios build an ugly version first, on purpose. It finds the fun before anyone spends time on art. Your game will be coloured shapes for now, and that's exactly right." },
+  { n: "Bring It to Life", get: "Your real art in the game",
+    tip: "Art goes in once the game works, so nothing pretty gets thrown away." },
+  { n: "First Players", get: "What a real player did and felt",
+    tip: "Designers watch someone play without helping. It's the fastest way to see your game through new eyes." },
+  { n: "Polish", get: "Your best fix, tested again",
+    tip: "Polish means fixing the thing players actually tripped on, not adding more." },
+  { n: "Ship It", get: "A public link anyone can play",
+    tip: "Shipping is a skill. Finished and shared beats perfect and hidden." }
+];
+var RANKS = ["Rookie", "Apprentice", "Level Designer", "Game Designer", "Lead Designer", "Creative Director", "Visionary"];
+var RANK_NEXT = [
+  "Finish Quest 1 to become an Apprentice",
+  "Finish Quest 4 (your prototype) to become a Level Designer",
+  "Ship your game (Quest 8) to become a Game Designer",
+  "Reach 150 Depth to become a Lead Designer",
+  "Reach 300 Depth and beat 3 boss questions to become a Creative Director",
+  "Reach 450 Depth and beat 6 boss questions to become a Visionary",
+  "Top rank. Your game has real depth."
+];
+var DEPTH_GOAL = [150, 150, 150, 150, 300, 450, 450];
+var BADGES = [
+  ["first_spark", "🔥", "First Spark"], ["only_one", "🎯", "Only One"], ["rule_maker", "📜", "Rule Maker"],
+  ["own_words", "✍️", "Own Words"], ["remixer", "🔀", "Remixer"], ["prototype", "🧱", "Prototype Pioneer"],
+  ["art_director", "🎨", "Art Director"], ["fresh_eyes", "👀", "Fresh Eyes"], ["fixer", "🛠️", "Fixer"],
+  ["sharp_eye", "🔍", "Sharp Eye"], ["boss_slayer", "🐉", "Boss Slayer"], ["shipped", "🚀", "Shipped It"]
+];
+
+function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+function seen(key, val) { try { if (val === undefined) return localStorage.getItem(key); localStorage.setItem(key, val); } catch (e) { return null; } }
+
+var lastJson = "";
+function render(q) {
+  var json = JSON.stringify(q);
+  if (json === lastJson) return;
+  lastJson = json;
+  q = q || {};
+  var cur = Math.max(1, Math.min(9, q.quest || 1));
+  var rank = Math.max(1, Math.min(7, q.rank || 1));
+  var xp = q.xp || 0, depth = q.depth || 0, bosses = q.bosses || 0;
+  var badges = q.badges || [];
+  var quest = QUESTS[Math.min(cur, 8) - 1];
+
+  // Map node positions along a gentle wave
+  var nodes = "";
+  for (var i = 0; i < 8; i++) {
+    var x = 6 + i * (88 / 7), y = (i % 2 === 0) ? 40 : 66;
+    var cls = (i + 1 < cur) ? "done" : (i + 1 === cur ? "now" : "");
+    var mark = (i + 1 < cur) ? "✓" : (i + 1);
+    nodes += '<div class="node ' + cls + '" style="left:' + x + '%;top:' + y + '%"><div class="dot"><i>' + mark + '</i></div><div class="lbl">' + esc(QUESTS[i].n) + '</div></div>';
+  }
+  var pts = [];
+  for (var j = 0; j < 8; j++) pts.push((6 + j * (88 / 7)) * 10 + "," + ((j % 2 === 0) ? 60 : 99));
+  var doneTo = Math.max(0, Math.min(8, cur) - 1);
+  var donePts = pts.slice(0, doneTo + 1);
+
+  var prevBadges = (seen("qb_badges") || "").split(",");
+  var badgeHtml = BADGES.map(function (b) {
+    var has = badges.indexOf(b[0]) >= 0, isNew = has && prevBadges.indexOf(b[0]) < 0 && prevBadges.join("") !== "";
+    return '<div class="badge ' + (has ? "" : "locked ") + (isNew ? "new" : "") + '" title="' + esc(b[2]) + '"><div class="ic">' + (has ? b[1] : "❔") + '</div><div class="nm">' + esc(b[2]) + '</div></div>';
+  }).join("");
+  seen("qb_badges", badges.join(",") || " ");
+
+  var feed = (q.feed || []).slice(-6).reverse().map(function (f) {
+    return '<li><span class="pts x">+' + (f.xp || 0) + ' XP</span>' + (f.depth ? '<span class="pts d">+' + f.depth + ' Depth</span>' : '') + esc(f.why) + '</li>';
+  }).join("") || '<li style="color:var(--muted)">Points you earn show up here, with the reason.</li>';
+
+  var xpGoal = 1200, depthGoal = DEPTH_GOAL[rank - 1];
+  var hero = q.hero_image ? '<div class="hero"><img src="' + esc(q.hero_image) + '" alt="Your hero"><div><div class="pixel" style="font-size:12px;color:var(--muted)">Your hero</div><b>' + esc(q.hero_name || "") + '</b></div></div>' : "";
+  var done = cur > 8;
+
+  document.getElementById("app").innerHTML =
+    '<header><div><div class="brand pixel">GameMaxxing · Quest Board</div>' +
+    '<div class="title pixel">' + esc(q.title || "Your game") + '</div>' +
+    '<div class="hook">' + esc(q.hook || "Your idea appears here after Quest 1.") + '</div></div>' +
+    '<div class="rank"><div class="emblem"><svg viewBox="0 0 66 66"><polygon points="33,2 62,18 62,48 33,64 4,48 4,18" fill="#ffcf4a" stroke="#fff3c4" stroke-width="3"/></svg><span class="pixel">' + rank + '</span></div>' +
+    '<div><small class="pixel">Rank ' + rank + ' of 7</small><b class="pixel">' + esc(RANKS[rank - 1]) + '</b>' +
+    (q.credits_left != null ? '<small style="margin-top:4px">🎨 ' + esc(q.credits_left) + ' art credits left</small>' : '') + '</div></div></header>' +
+
+    '<div class="bars"><div class="bar xp"><div class="row"><span class="pixel">⭐ XP · progress</span><b>' + xp + '</b></div><div class="track"><div class="fill" data-w="' + Math.min(100, xp / xpGoal * 100) + '"></div></div></div>' +
+    '<div class="bar depth"><div class="row"><span class="pixel">💎 Depth · how rich your game is</span><b>' + depth + '</b></div><div class="track"><div class="fill" data-w="' + Math.min(100, depth / depthGoal * 100) + '"></div></div>' +
+    '<div class="next">Next rank: ' + esc(RANK_NEXT[rank - 1]) + (rank < 4 ? ' · Your Depth is saved up: once you ship, 150 makes you a Lead Designer.' : '') + (bosses ? ' · Boss questions beaten: ' + bosses : '') + '</div></div></div>' +
+
+    '<div class="panel"><h2 class="pixel">🗺️ Quest map</h2><div class="map"><svg class="path" viewBox="0 0 1000 150" preserveAspectRatio="none">' +
+    '<polyline points="' + pts.join(" ") + '" fill="none" stroke="#3d3466" stroke-width="6" stroke-dasharray="14 10" stroke-linecap="round"/>' +
+    (donePts.length > 1 ? '<polyline points="' + donePts.join(" ") + '" fill="none" stroke="#6ee7a0" stroke-width="6" stroke-linecap="round"/>' : '') +
+    '</svg><div class="nodes">' + nodes + '</div></div></div>' +
+
+    '<div class="grid"><div class="panel quest-now">' +
+    (done ? '<h2 class="pixel">🏆 All quests complete</h2><div class="qn pixel">Your game is live!</div>' +
+            (q.published_url ? '<div class="tip">Share your link: <b>' + esc(q.published_url) + '</b></div>' : '')
+          : '<h2 class="pixel">📍 Quest ' + cur + ' of 8' + (q.step ? ' · ' + esc(q.step) : '') + '</h2><div class="qn pixel">' + esc(quest.n) + '</div>' +
+            '<div class="tip">💡 ' + esc(quest.tip) + '</div><div class="get">You walk away with: <b>' + esc(quest.get) + '</b></div>') +
+    hero +
+    '<div class="say">Say any time: <span><b>map</b></span><span><b>suggest</b></span><span><b>examples</b></span><span><b>why</b></span><span><b>skip</b></span><span><b>back</b></span><span><b>score</b></span><span><b>credits</b></span><span><b>undo</b></span></div>' +
+    '</div><div class="panel"><h2 class="pixel">📣 Latest points</h2><ul class="feed">' + feed + '</ul></div></div>' +
+
+    '<div class="panel"><h2 class="pixel">🏅 Badges · ' + badges.length + ' of ' + BADGES.length + '</h2><div class="badges">' + badgeHtml + '</div></div>';
+
+  setTimeout(function () {
+    var fills = document.querySelectorAll(".fill");
+    for (var k = 0; k < fills.length; k++) fills[k].style.width = fills[k].getAttribute("data-w") + "%";
+  }, 60);
+
+  var prevRank = parseInt(seen("qb_rank") || "0", 10);
+  if (prevRank && rank > prevRank) {
+    document.getElementById("lvName").textContent = RANKS[rank - 1];
+    document.getElementById("lvWhy").textContent = "Rank " + rank + " of 7";
+    var lv = document.getElementById("levelup");
+    lv.className = "levelup show";
+    setTimeout(function () { lv.className = "levelup"; }, 4000);
+  }
+  seen("qb_rank", String(rank));
+}
+
+// Re-read quest_data.js every 3 seconds. A script tag works from a local file with no server.
+function poll() {
+  var old = document.getElementById("qdata");
+  if (old) old.parentNode.removeChild(old);
+  var s = document.createElement("script");
+  s.id = "qdata";
+  s.src = "quest_data.js?t=" + Date.now();
+  s.onload = function () { if (window.QUEST) render(window.QUEST); };
+  document.body.appendChild(s);
+}
+poll();
+setInterval(poll, 3000);
+</script>
+</body>
+</html>

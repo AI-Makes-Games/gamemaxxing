@@ -27,6 +27,7 @@ Conditions look like `met_ada`, `!met_ada`, `has:key`, `kindness>=2`, `mood=angr
 | Test the game end to end | `<godot> --headless --path . --script res://tests/run_bot.gd` (prints `RUN COMPLETE: <ending>`, or `RUN FAILED: <why>`) |
 | Test, and save a working checkpoint if it passes | `<godot> --headless --path . --script res://tools/checkpoint.gd -- save-tested "<what changed>"` |
 | Save without testing / go back to the last working one / list | `... checkpoint.gd -- save "<label>"` / `-- restore` / `-- list` |
+| The student's `undo` (take back the last change, for good) | `... checkpoint.gd -- undo` |
 | Pack the web export for itch.io | `<godot> --headless --path . --script res://tools/zip_web.gd` |
 | Turn art strips into animations | `<godot> --headless --path . --script res://tools/build_frames.gd -- <id>`, then `<godot> --headless --path . --import` |
 | Export for the web | make `build/web/` and an empty `build/.gdignore`, then `<godot> --headless --path . --export-release "Web" build/web/index.html` |

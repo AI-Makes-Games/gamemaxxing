@@ -6,6 +6,9 @@ extends SceneTree
 ##   godot --headless --path . --script res://tools/checkpoint.gd -- save "before adding a boss"   (saves without testing)
 ##   godot --headless --path . --script res://tools/checkpoint.gd -- restore    (go back to the newest one that passed)
 ##   godot --headless --path . --script res://tools/checkpoint.gd -- restore <name>
+##   godot --headless --path . --script res://tools/checkpoint.gd -- undo
+##        (the student's "undo": throws away an unsaved change, or else goes back one working checkpoint
+##         and marks the one it left as undone, so restore and the next undo never bring it back)
 ##   godot --headless --path . --script res://tools/checkpoint.gd -- list
 
 const ROOT := "res://gamemaxxing/checkpoints/"
@@ -28,6 +31,8 @@ func _initialize() -> void:
 			_mark_passed()
 		"restore":
 			_restore(args[1] if args.size() > 1 else "")
+		"undo":
+			_undo()
 		_:
 			_list()
 	quit()
@@ -99,13 +104,87 @@ func _mark_passed() -> void:
 	fa.close()
 	print("CHECKPOINT PASSED: %s" % name)
 
+func _working(name: String) -> bool:
+	var info := _info(name)
+	return bool(info.get("passed_bot", false)) and not bool(info.get("undone", false))
+
+## Working checkpoints, newest first.
+func _working_names() -> Array:
+	var out: Array = []
+	var names := _names()
+	for i in range(names.size() - 1, -1, -1):
+		if _working(names[i]):
+			out.append(names[i])
+	return out
+
+func _same_bytes(a: String, b: String) -> bool:
+	if FileAccess.file_exists(a) != FileAccess.file_exists(b):
+		return false
+	if not FileAccess.file_exists(a):
+		return true
+	return FileAccess.get_file_as_bytes(a) == FileAccess.get_file_as_bytes(b)
+
+## True when the game's files match the checkpoint (only the files a checkpoint keeps).
+func _matches(name: String) -> bool:
+	var cp := ROOT + name + "/"
+	for f in FILES:
+		if not _same_bytes("res://" + f, cp + f):
+			return false
+	for d in FOLDERS:
+		if not _same_folder("res://" + d, cp + d):
+			return false
+	return true
+
+func _same_folder(a: String, b: String) -> bool:
+	if DirAccess.dir_exists_absolute(a) != DirAccess.dir_exists_absolute(b):
+		return false
+	if not DirAccess.dir_exists_absolute(a):
+		return true
+	var fa: Array = Array(DirAccess.get_files_at(a)).filter(func(x): return not x.ends_with(".uid"))
+	var fb: Array = Array(DirAccess.get_files_at(b)).filter(func(x): return not x.ends_with(".uid"))
+	fa.sort()
+	fb.sort()
+	if fa != fb:
+		return false
+	for f in fa:
+		if not _same_bytes(a + "/" + f, b + "/" + f):
+			return false
+	for d in DirAccess.get_directories_at(a):
+		if not _same_folder(a + "/" + d, b + "/" + d):
+			return false
+	return true
+
+func _set_info(name: String, key: String, value: Variant) -> void:
+	var info := _info(name)
+	info[key] = value
+	var fa := FileAccess.open(ROOT + name + "/info.json", FileAccess.WRITE)
+	fa.store_string(JSON.stringify(info, "  "))
+	fa.close()
+
+func _undo() -> void:
+	var working := _working_names()
+	if working.is_empty():
+		print("UNDO FAILED: no working checkpoint to go back to.")
+		return
+	var newest: String = working[0]
+	if not _matches(newest):
+		# an unsaved (or failed) change: throw it away
+		_restore(newest)
+		print("UNDONE: threw away the change that wasn't saved; back to \"%s\"." % str(_info(newest).get("label", "")))
+		return
+	if working.size() < 2:
+		print("UNDO FAILED: this is the first working version, so there's nothing earlier to go back to.")
+		return
+	_set_info(newest, "undone", true)
+	_restore(working[1])
+	print("UNDONE: \"%s\". Back to \"%s\"." % [str(_info(newest).get("label", "")), str(_info(working[1]).get("label", ""))])
+
 func _restore(name: String) -> void:
 	var names := _names()
 	if name == "":
-		for i in range(names.size() - 1, -1, -1):
-			if bool(_info(names[i]).get("passed_bot", false)):
-				name = names[i]
-				break
+		var working := _working_names()
+		if not working.is_empty():
+			name = working[0]
 	if name == "" or not DirAccess.dir_exists_absolute(ROOT + name):
 		print("RESTORE FAILED: no checkpoint to go back to.")
 		return
@@ -116,4 +195,5 @@ func _restore(name: String) -> void:
 func _list() -> void:
 	for n in _names():
 		var info := _info(n)
-		print("%s  %s  %s" % [n, "passed" if info.get("passed_bot", false) else "      ", info.get("label", "")])
+		var state := "undone" if info.get("undone", false) else ("passed" if info.get("passed_bot", false) else "      ")
+		print("%s  %s  %s" % [n, state, info.get("label", "")])

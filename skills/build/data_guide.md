@@ -12,6 +12,7 @@ All three templates read the same files. Keep them valid JSON: a missing comma o
 | `tile_size` | Size of one map square in pixels (32). |
 | `player` | `sprite` (art id, usually `hero`), `color` (placeholder), `health`. Adventure: `speed`, `attack_damage`, `can_attack` (`false` turns off swinging). Platformer: `speed`, `jump_speed`, `gravity`, `max_fall`, `coyote_time` (seconds you can still jump after leaving a ledge), `jump_buffer` (seconds a jump pressed early still counts). |
 | `enemy_touch` | Adventure only: `"hurt"` (default, costs health) or `"send_back"` (being caught sends the player back to the last checkpoint, and the hearts are hidden). For gentle games. |
+| `words` | Adventure and platformer: the little messages on screen, so they can match the student's game and rules. Keys and defaults: `found` ("Found: {item}"), `checkpoint` ("Checkpoint"), `back` ("Back to the last checkpoint"), `caught` (adventure, "Caught! Back to the last checkpoint"), `carrying` (adventure, "Carrying: "), `locked` (adventure, "The {item} is locked."). `{item}` becomes the thing's name. Example: `"words": {"caught": "The neighbour walks Biscuit home.", "checkpoint": "Good spot to rest"}`. |
 | `endings` | A list, checked in order; the first whose `if` is true is used. Each has `id`, `if` (a condition, `""` means always), `title`, `text`. Put the catch-all ending last. |
 | `start_scene` | Story only: the first scene. |
 | `timed_choices` | Story only: `true` turns on countdowns for scenes that have a `timer`. Off by default. |
@@ -72,3 +73,13 @@ One letter per square. Every row the same length. Fixed letters:
 | `P` | player start | player start |
 
 Any other letter is looked up in `entities.json` by `char`. Exactly one `P`. The platformer needs a solid edge on the left and right (the template's `#` columns) and a goal.
+
+## Common patterns (data only, no code)
+
+| The student wants | How |
+| --- | --- |
+| An action to get a reaction (digging, searching, petting) | An `item` the player touches, with a `name` that says what happened ("a hole under the fence") and a `set` flag. The "Found:" message becomes the reaction (change it in `words` if needed). |
+| Something to open once the player has done X | A `door` with `opens_if` set to the flag from that item or conversation. |
+| A character to say something different later | Their `talk` as a list: `[{"if": "flag", "scene": "after"}, {"scene": "before"}]`. |
+| Being caught to match a gentle rule | `enemy_touch: "send_back"`, plus `words.caught` in the student's words. |
+| Different endings from choices | A choice `set`s or `add`s something; each ending in `game.json` has an `if`. |

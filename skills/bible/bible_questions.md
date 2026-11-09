@@ -1,6 +1,6 @@
 # The five inputs
 
-Ask one at a time, in this order.
+Ask one at a time, in the order SKILL.md gives (the look comes last, and opens Quest 3).
 
 | Input | Ask | Counts when | Saved to |
 | --- | --- | --- | --- |
@@ -11,6 +11,29 @@ Ask one at a time, in this order.
 | The look | "Your game will be in pixel art, like classic games, in your colours. Show me or describe 3 pictures you love the look of (screenshots, photos, paintings, anything), then give me 3 words for how it should feel to look at." Then, as a separate message: "And your hero: who are they, and what do they look like? A few words is plenty." | 3 pictures (pasted or described), 3 words, and a few words about the hero | `art_bible.json` |
 
 If their pictures are in another style (watercolour, photos), say the pixel art will borrow their colours and mood. Don't promise the same technique.
+
+## Plain versions (when the student says "I don't get it")
+
+- **Hook:** "In one sentence, what's the special thing players get to do in your game?"
+- **Main action:** "When someone plays, what are their hands doing most: walking around, jumping, or reading and picking choices?"
+- **Rules:** "What's always true in your game, or never allowed? Like 'Biscuit never gets hurt' or 'the gate is always locked at night'."
+- **One scene:** "Pick one moment from your game, like a scene from a film. Where is it, who's there, and what does the player have to choose?"
+- **Ending feeling:** "When someone finishes your game, how should they feel? One word is fine."
+- **What gets in the way:** "What makes it tricky? Someone chasing, something blocking the way, a time limit?"
+- **The look:** "Think of a few pictures, games or films you love the look of. What words describe them: cosy, spooky, bright?"
+- **Your hero:** "Who do you play as? Describe them like you would to a friend."
+
+## "Why I'm asking" (one line on each question card)
+
+- **Hook:** "It goes on your title screen, and every part of the game should serve it."
+- **Main action:** "It decides which kind of game we build: what your hands do most of the time."
+- **Rules:** "Rules keep your game yours. I'll check every change against them, so nothing drifts."
+- **One scene:** "This moment becomes the heart of your first level."
+- **Ending feeling:** "It tells us what the whole game is building towards, and how your endings should land."
+- **What gets in the way:** "Every game needs something to push against. This becomes your creatures or obstacles."
+- **Title:** "It's on the title screen and your web page. A working title is fine."
+- **The look:** "These set the colours and mood of every picture we make, so it all looks like one world."
+- **Your hero:** "Your hero is the first thing we draw, and the face of your game."
 
 ## The scene: three questions, one at a time
 

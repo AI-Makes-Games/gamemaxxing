@@ -11,6 +11,28 @@ Ask one at a time. The pitch passes when **3 of the 6** pass. If the idea is mos
 | Personal | "Where in your life does this idea come from?" | A real memory, place, person or feeling that explains the **new** part of the idea. "I liked Zelda when my son played it" explains the copied part, so ask once more. |
 | Ending | "How should the player feel in the last 10 seconds of your game?" | **One** clear feeling |
 
+## "Why I'm asking" (one line on each question card)
+
+- **Only game:** "This is the one thing players will remember and tell their friends about."
+- **Swap:** "If the place really matters, your game can't be mistaken for anyone else's."
+- **New action:** "A new thing to do is what makes a game feel fresh in your hands."
+- **Broken habit:** "Breaking one habit on purpose is how games get their own personality."
+- **Personal:** "Your own life is the one thing nobody else can copy."
+- **Ending:** "Knowing the last feeling tells us what every part of the game is building towards."
+
+## Plain versions (when the student says "I don't get it")
+
+Tie each one to their idea where you can.
+
+- **Only game:** "If you told a friend about your game, what's the one thing you'd say they get to *do* that no other game lets them? Like 'you're a dog digging out of the yard'."
+- **Swap:** "Imagine your game happening somewhere completely different. Would it still be the same game? What would go missing?"
+- **New action:** "Think of a game a bit like yours. What could the player do in yours that they can't do in that one?"
+- **Broken habit:** "Games like yours usually do certain things (like fighting, or a timer). Is there one of those you'd rather your game didn't do? Why?"
+- **Personal:** "Is there something from your own life in this idea? A pet, a place, a person, a memory?"
+- **Ending:** "When someone finishes your game, how do you want them to feel? Just one word is fine."
+
+**Real-life ideas** (a pet, a job, a place) often pass **Personal** straight away, so start there.
+
 ## Judging fairly
 
 - Be generous with the student's words but strict about the test. "On the moon" is a setting, not something the player does, so it doesn't pass Only game. "Bounce higher the sadder you feel" does.

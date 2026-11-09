@@ -5,11 +5,11 @@ description: Publishes the student's GameMaxxing game on the web. Use at publish
 
 # GameMaxxing: publish
 
-Talk the way [tone.md](${CLAUDE_PLUGIN_ROOT}/shared/tone.md) says. Godot's path is `godot_path` in `gamemaxxing/progress.json` (written `<godot>` below). The itch.io steps are in [itch_steps.md](itch_steps.md).
+This is **Quest 8 · Ship It**. Talk the way [tone.md](${CLAUDE_PLUGIN_ROOT}/shared/tone.md) says, and follow [quest.md](${CLAUDE_PLUGIN_ROOT}/shared/quest.md). Godot's path is `godot_path` in `gamemaxxing/progress.json` (written `<godot>` below). The itch.io steps are in [itch_steps.md](itch_steps.md).
 
 ## Steps (Claude does 1 to 5; the student does 6)
 
-1. **Celebrate** in one line: they're about to put their own game on the internet.
+1. **Celebrate** in one line: they're about to put their own game on the internet. Say what happens next in one line: "I'll test it and pack it for the web (a couple of minutes). Then I'll walk you through putting it on itch.io, one click at a time."
 2. **Web export templates:** check there's a folder starting with `4.7` in the export templates folder (Windows `%APPDATA%\Godot\export_templates\`, Mac `~/Library/Application Support/Godot/export_templates/`) holding `web_nothreads_release.zip`. If not, the student opens Godot, clicks **Editor → Manage Export Templates → Download and Install**, and waits. It's a big download, so start it as early as possible.
 3. **Test and save:** `<godot> --headless --path . --script res://tools/checkpoint.gd -- save-tested "ready to publish"`. It must print `RUN COMPLETE` and save.
 4. **Export for the web:**
@@ -23,7 +23,12 @@ Talk the way [tone.md](${CLAUDE_PLUGIN_ROOT}/shared/tone.md) says. Godot's path 
    - They make their own free account. Never create it or type their password for them.
    - The viewport size is in `project.godot` (`viewport_width` and `viewport_height`; 1280 by 720 unless changed).
 7. **Check it works:** they press Play on their itch.io page. If it doesn't load, the usual causes are in itch_steps.md.
-8. **Record it:** save their game's link as `published_url` in `progress.json`, set `stage` to `showcase` with its start time, and celebrate: their game is live, and here's the link to share.
+8. **Record it:** save their game's link as `published_url` (and `quest.published_url`) in `progress.json`, award 🚀 Shipped It, set `stage` to `showcase` with its start time, and celebrate: their game is live, and here's the link to share.
+9. **The finale:**
+   1. Finish **Quest 8**: the check-in, the boss question offer ("Write the one line a stranger on itch.io reads. Why would they click Play?"), and the quest complete moment. They reach rank 4, Game Designer (or higher, from their Depth and boss questions).
+   2. Set `quest.quest` to 9 and show their final score: rank, XP, Depth, badges.
+   3. Show their **Full game list** from `design/later.md` as "Where your game could go next", and remind them this prototype is the spark: they can keep building after today.
+   4. Suggest they play everyone else's games.
 
 ## Rules
 

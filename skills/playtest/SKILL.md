@@ -5,7 +5,9 @@ description: Runs a GameMaxxing playtest round. Use at playtest time (around 1:4
 
 # GameMaxxing: playtest
 
-Watching someone else play is how the student finds what to fix. Talk the way [tone.md](${CLAUDE_PLUGIN_ROOT}/shared/tone.md) says. The exact wording for each step is in [playtest_script.md](playtest_script.md).
+Watching someone else play is how the student finds what to fix. Round 1 is **Quest 6 · First Players**; round 2 is part of **Quest 7 · Polish**. Talk the way [tone.md](${CLAUDE_PLUGIN_ROOT}/shared/tone.md) says, and follow [quest.md](${CLAUDE_PLUGIN_ROOT}/shared/quest.md) for question cards and points. The exact wording for each step is in [playtest_script.md](playtest_script.md).
+
+Before you start, say in two lines what happens: someone plays without help while they watch and take notes, then they ask three questions and pick one thing to fix. "It can feel strange to watch in silence. That's the point: it shows you what your game says on its own."
 
 ## How to run it
 
@@ -16,9 +18,15 @@ Watching someone else play is how the student finds what to fix. Talk the way [t
 5. **After:** the student asks the tester the three questions, one at a time, and types the answers. Record them as given.
 6. **One fix:** show the notes back as a short list of problems, in plain words, and ask the student to pick the **single biggest** one. Don't pick for them. If they want several, say "Let's do the biggest one now. The rest go on your later list." Once they've picked, add **every** other problem from the list to `design/later.md`, so nothing they saw gets lost.
 7. **Save `playtest/round-N.md`** (format in the script file).
-8. **Fix it:**
-   - **Round 1:** the fix happens in the fix stage. Set `stage` to `fix`, add its start time to `stage_started`, and say the next step is reviewing Claude's guesses and then making their fix. If the `start` skill sent you, run `gamemaxxing:decisions` (review) with the Skill tool.
-   - **Round 2:** make the one fix now with the `gamemaxxing:build` skill (test bot after). Then set `stage` to `publish` and say it's time to share the game with the world.
+8. **Points** (quest.md):
+   - ⭐ +10 XP for each part done.
+   - 💎 +10 when a "what should they feel" answer is one clear feeling.
+   - 💎 +15 when the fix they pick comes from what the tester actually did.
+   - 👀 Fresh Eyes when round 1 is saved.
+   - A tester struggling is good news for a designer: say so if the student seems down ("This is exactly what playtests are for. Now you know what to fix.").
+9. **Fix it:**
+   - **Round 1:** the fix happens in the fix stage. Finish **Quest 6** (check-in, boss question offer, quest complete). Then set `stage` to `fix`, add its start time to `stage_started`, open **Quest 7 · Polish**, and say the next step is reviewing Claude's guesses and then making their fix. If the `start` skill sent you, run `gamemaxxing:decisions` (review) with the Skill tool.
+   - **Round 2:** make the one fix now with the `gamemaxxing:build` skill (test bot after). Then finish **Quest 7** (check-in, boss question offer, quest complete), set `stage` to `publish`, and open **Quest 8 · Ship It**.
 
 ## Rules
 

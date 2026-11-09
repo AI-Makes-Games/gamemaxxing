@@ -18,7 +18,16 @@ Every GameMaxxing skill reads and updates this file. Keep it valid JSON. Times a
   "scope_cut": "not_offered",
   "checkpoints": [],
   "published_url": "",
-  "notes": []
+  "notes": [],
+  "quest": {
+    "title": "", "hook": "",
+    "quest": 1, "step": "",
+    "xp": 0, "depth": 0, "rank": 1, "bosses": 0,
+    "badges": [], "feed": [],
+    "hero_image": "", "hero_name": "",
+    "credits_left": null, "published_url": "",
+    "suggestions_used": 0, "own_words": 0
+  }
 }
 ```
 
@@ -38,5 +47,6 @@ Every GameMaxxing skill reads and updates this file. Keep it valid JSON. Times a
 | `scope_cut` | `not_offered`, `accepted` or `declined` |
 | `checkpoints` | Save points: `{ "time": ..., "label": ..., "passed_bot": true }` |
 | `notes` | Short notes for Hex, for example "art skill not built yet" |
+| `quest` | The game-like layer from [quest.md](quest.md): current `quest` (1 to 8, 9 when all done) and `step` (a few words, e.g. "Question 2 of 3"), `xp`, `depth`, `rank` (1 to 7), `bosses` (boss questions answered), `badges` (ids), `feed` (last 8 point awards with reasons), `title`, `hook`, `hero_image`, `hero_name`, `credits_left`, `published_url`, and counters `suggestions_used` and `own_words` (answers in their own words, for the Own Words badge). After every change, rewrite `gamemaxxing/quest_data.js` (see quest.md). |
 
 Create the `gamemaxxing/` folder if it doesn't exist.

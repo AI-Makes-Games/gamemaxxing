@@ -42,5 +42,10 @@ The coach never writes your game's idea, rules or story for you. It asks questio
 - **Made for:** Godot 4.7 (GL Compatibility, single-threaded web export), Windows and Mac. No Python, Node or Git needed on students' laptops.
 - **Three game templates:** adventure (top-down), platformer (side view) and story (choices). Each one plays from title to ending with placeholder shapes, and swaps in SpriteCook pixel art when it arrives. Each has a test bot that plays it through after every change.
 - **The day:** `/gamemaxxing:start` runs the whole schedule (pitch, game bible, build, art, two playtests, publish to itch.io). `/gamemaxxing:coach` gives the leader a one-screen view of where a student is.
+- **Quest Mode:** the day plays as 8 quests, each opening with a short tip on how real studios make games.
+  - Students earn XP for progress, and **Depth** for making their game richer and more their own. Depth, plus optional "boss" questions, lifts their designer rank (7 ranks).
+  - Every question explains why it's asked. Students can say `suggest`, `examples`, `skip`, `back`, `map`, `score`, `credits` or `undo` at any time.
+  - A live **Quest Board** page opens in the browser and updates as they play.
+  - The goal is a polished prototype that shows why their idea is special, not a whole game.
 - **Accounts:** each student needs their own Claude Pro, SpriteCook and itch.io account. A full adventure game uses about 470 SpriteCook credits.
 - **Licence:** MIT (see `LICENSE`).

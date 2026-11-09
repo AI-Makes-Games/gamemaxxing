@@ -266,11 +266,11 @@ func tick(dt: float) -> void:
 			story.apply(it.d, item_names)
 			story.note("Found the %s" % it.name)
 			it.node.queue_free()
-			_toast("Found: %s" % it.name)
+			_toast(word("found", "Found: {item}").replace("{item}", str(it.name)))
 	for cp in checkpoints:
 		if cp.p.distance_to(player.p) < 26 and respawn != cp.p:
 			respawn = cp.p
-			_toast("Checkpoint")
+			_toast(word("checkpoint", "Checkpoint"))
 	for g in goals:
 		if g.p.distance_to(player.p) < 26:
 			finish("")
@@ -298,7 +298,7 @@ func _sync() -> void:
 	fx.queue_redraw()
 	hud.queue_redraw()
 	var names: Array = story.items.values()
-	hud_items.text = ("Carrying: " + ", ".join(names)) if names.size() > 0 else ""
+	hud_items.text = (word("carrying", "Carrying: ") + ", ".join(names)) if names.size() > 0 else ""
 	hud_prompt.text = toast if toast_t > 0.0 else _prompt()
 
 func _prompt() -> String:
@@ -399,7 +399,7 @@ func hurt(dmg: float, from: Vector2) -> void:
 		player.hp = Data.num(D.game.get("player", {}), "health", 5)
 		player.p = respawn
 		player.inv = 1.5
-		_toast("Back to the last checkpoint")
+		_toast(word("back", "Back to the last checkpoint"))
 
 ## game.json "player": {"can_attack": false} turns off swinging, for gentle games.
 func can_attack() -> bool:
@@ -415,7 +415,7 @@ func caught() -> void:
 	player.p = respawn
 	player.inv = 1.5
 	player.flash = 0.3
-	_toast("Caught! Back to the last checkpoint")
+	_toast(word("caught", "Caught! Back to the last checkpoint"))
 
 # ---------- talking and doors ----------
 func _near_npc() -> Dictionary:
@@ -440,7 +440,7 @@ func _interact() -> void:
 		if can_open(d):
 			_open(d)
 		else:
-			_toast("The %s is locked." % d.name)
+			_toast(word("locked", "The {item} is locked.").replace("{item}", str(d.name)))
 
 func can_open(d: Dictionary) -> bool:
 	var needs := str(d.d.get("needs", ""))
@@ -558,3 +558,8 @@ func _draw_fx() -> void:
 		fx.draw_arc(player.p, 38, a - 1.0, a + 1.0, 12, Color(1, 1, 1, 0.8), 4.0)
 	for s in shots:
 		fx.draw_circle(s.p, 6, s.col)
+
+## On-screen words the student can change in game.json "words" (for example {"caught": "They walk you home."}).
+## {item} is replaced with the thing's name.
+func word(key: String, fallback: String) -> String:
+	return str((D.game.get("words", {}) as Dictionary).get(key, fallback))
