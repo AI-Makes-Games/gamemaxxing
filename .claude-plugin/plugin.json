@@ -6,6 +6,8 @@
   "author": {
     "name": "Hex"
   },
+  "homepage": "https://github.com/AI-Makes-Games/gamemaxxing",
+  "repository": "https://github.com/AI-Makes-Games/gamemaxxing",
   "license": "MIT",
   "keywords": ["games", "godot", "workshop", "beginners", "pixel-art"]
 }

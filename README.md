@@ -16,11 +16,11 @@ Make your own 2D game in one day, then share it on the web. You don't need to kn
 3. **Make a folder for your game.** Make an empty folder called `MyGame` (on your Desktop is fine). In the Claude app, open the **Code** tab and choose that folder.
 4. **Add GameMaxxing.** In the Code tab, click **Customize** in the sidebar, add a marketplace with this address, then install **gamemaxxing** from the list:
    ```
-   https://github.com/<github-user>/gamemaxxing
+   https://github.com/AI-Makes-Games/gamemaxxing
    ```
    Or type these two lines into Claude Code, one at a time:
    ```
-   /plugin marketplace add <github-user>/gamemaxxing
+   /plugin marketplace add AI-Makes-Games/gamemaxxing
    /plugin install gamemaxxing@gamemaxxing
    ```
 5. **Add SpriteCook** the same way (address `https://github.com/SpriteCook/claude-plugin`, then install **spritecook**), and sign in to SpriteCook when it asks. Or type:
